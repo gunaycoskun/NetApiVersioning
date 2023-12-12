@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "1b3c2acd-f103-4e95-9526-977678ab3802",
+		"name": "NetVersioning",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26632903"
+	},
+	"item": [
+		{
+			"name": "Route",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:7071/v2/weatherForecast",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"v2",
+						"weatherForecast"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Header",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-Version",
+						"value": "2",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:7071/WeatherForecast",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"WeatherForecast"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7071/WeatherForecast?weather-version=1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"WeatherForecast"
+					],
+					"query": [
+						{
+							"key": "weather-version",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
