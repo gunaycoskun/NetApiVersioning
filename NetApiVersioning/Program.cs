@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using NetApiVersioning;
@@ -32,17 +33,20 @@ builder.Services.AddVersionedApiExplorer(options =>
 builder.Services.ConfigureOptions<NamedSwaggerGenOptions>();
 
 builder.Services.AddEndpointsApiExplorer();
-
+var provider = builder.Services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
+    app.UseSwaggerUI(options =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-        c.SwaggerEndpoint("/swagger/v2/swagger.json", "My API V2");
+        foreach (var description in provider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint(
+                $"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+        }
     });
 }
 
