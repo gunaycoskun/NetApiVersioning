@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.OpenApi.Models;
+using NetApiVersioning;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,8 @@ builder.Services.AddVersionedApiExplorer(options =>
     options.GroupNameFormat = "'v'VVV";
     options.SubstituteApiVersionInUrl = true;
 });
+builder.Services.ConfigureOptions<NamedSwaggerGenOptions>();
+
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
@@ -35,8 +39,13 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        c.SwaggerEndpoint("/swagger/v2/swagger.json", "My API V2");
+    });
 }
+
 
 app.UseHttpsRedirection();
 
